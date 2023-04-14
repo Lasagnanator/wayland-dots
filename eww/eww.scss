@@ -1,0 +1,32 @@
+// EWW colors
+
+.layout-box {
+    background-color: #1F2335;
+    color: #A9B1D6;
+}
+
+.workspace-entry {
+    font: 24px "Material Design Icons";
+    margin: 0px 2px;
+}
+
+.occupied {
+    color: #9358E3;
+}
+
+.current {
+    color: #FF8400;
+}
+
+.empty {
+    font: 32px "Material Design Icons";
+}
+
+.info { 
+    .icon {
+        margin: 0px 0px 0px 4px;
+    }
+    .text {
+        margin: 0px 4px 0px 0px;
+    }
+}

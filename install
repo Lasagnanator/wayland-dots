@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Change directory to the correct one
+cd $(dirname $0)
+
+# List directories to be copied
+DIRS=$(ls -l | grep -E '^d' | cut -s -d " " -f 9)
+
+# Remove and copy dotfiles directories
+while read DIR; do
+    rm -rf ${HOME}/.config/${DIR}
+    ln -s ${PWD}/${DIR} ${HOME}/.config/
+done <<< $DIRS

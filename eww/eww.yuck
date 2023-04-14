@@ -1,0 +1,134 @@
+;; EWW, KRAKEN'S BILE ;;
+
+;; WINDOWS ;;
+
+(defwindow  bar
+            :monitor    0
+            :stacking   "bottom"
+            :exclusive  true
+            :focusable  false
+            :geometry   (geometry :width "100%"
+                                  :height "32px"
+                                  :anchor "top center")
+            (bar_layout))
+
+;; LAYOUTS ;;
+
+(defwidget bar_layout []
+  (centerbox :class "layout-box"
+       :orientation "horizontal"
+       (left)
+       (center)
+       (right)))
+
+(defwidget left []
+  (box :class "left-widgets"
+       :orientation "horizontal"
+       :space-evenly false
+       :halign "start"
+       (current_window)))
+       ;; (json_widget)))
+
+(defwidget center []
+  (box :class "center-widgets"
+       :orientation "horizontal"
+       (workspaces :alignment "center")))
+
+(defwidget right []
+  (box :class "right-widgets"
+       :orientation "horizontal"
+       :space-evenly false
+       :halign "end"
+       (volume)
+       (brightness)
+       (ram)
+       (cpu)
+       (temp)
+       (batteries)
+       (datetime)))
+
+; VARIABLES
+(deflisten hyprinfo "scripts/hyprinfo")
+(deflisten sysinfo "scripts/sysinfo")
+(deflisten brightness "scripts/brightness")
+(deflisten volume "scripts/volume")
+
+(defpoll datetime :initial "No time"
+                  :interval "1s"
+                  "date '+%a, %d %b %H:%M'")
+
+;; WIDGETS ;;
+
+(defwidget current_window []
+  (label :text "${hyprinfo.window.class == "Null" ? "~" : hyprinfo.window.class}"
+         :class "info"))
+
+(defwidget workspaces []
+  (box :space-evenly true
+       (for workspace in {hyprinfo.workspaces}
+         (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+                   (label :text "${workspace.id == hyprinfo.monitors[0].activeWorkspace ? " 󰮯 " : "${workspace.windows > 0 ? " 󰊠 " : " 󰧟 "}"}"
+                          :class "workspace-entry ${workspace.id == hyprinfo.monitors[0].activeWorkspace ? "current" : "${workspace.windows > 0 ? "occupied" : "empty"}"}")))))
+
+(defwidget datetime []
+  (label :text "${datetime}"
+         :class "info"))
+
+(defwidget batteries []
+  (box :space-evenly false
+       :class "info"
+       (label :text "󰁹 "
+            :class "icon")
+       (label :text "${sysinfo.bat1}/${sysinfo.bat2}%"
+              :class "text")))
+    
+
+(defwidget ram []
+  (box :space-evenly false
+       :class "info"
+       (label :text "󰘚 "
+              :class "icon")
+       (label :text "${sysinfo.mem}%"
+              :class "text")))
+
+(defwidget cpu []
+  (box :space-evenly false
+       :class "info"
+       (label :text "󰍛 "
+              :class "icon")
+       (label :text "${sysinfo.cpu > 0 ? sysinfo.cpu : 1}%"
+              :class "text")))
+
+(defwidget temp []
+  (box :space-evenly false
+       :class "info"
+       (label :text "󰔐 "
+              :class "icon")
+       (label :text "${sysinfo.temp}°C"
+              :class "text")))
+
+(defwidget volume []
+  (box :space-evenly false
+       :class "info"
+       (label :text "󰕾 "
+              :class "icon")
+       (label :text "${volume}${volume == "MUTE" ? "" : "%"}"
+              :class "text")))
+
+(defwidget brightness []
+  (box :space-evenly false
+       :class "info"
+       (label :text "󰖙 "
+              :class "icon")
+       (label :text "${brightness}%"
+              :class "text")))
+
+
+;; TEST ;;
+
+(defwidget json_widget []
+  (eventbox :onclick "echo ${EWW_TEMPS} > scripts/eww_temps"
+    (box :space-evenly true
+      (label :text "Dump temps"))))
+      ;; (label :text "${EWW_TEMPS.thinkpad_cpu}"))))
+

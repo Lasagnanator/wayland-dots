@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+
+import socket
+import os
+import subprocess
+import json
+
+def hyprland_status():
+    raw_monitors = json.loads(subprocess.run(["hyprctl", "monitors", "-j"], capture_output=True).stdout)
+    raw_workspaces = json.loads(subprocess.run(["hyprctl", "workspaces", "-j"], capture_output=True).stdout)
+    raw_window = json.loads(subprocess.run(["hyprctl", "activewindow", "-j"], capture_output=True).stdout)
+    monitors = []
+    for i in range(0, 4):
+        monitor = [x for x in raw_monitors if x["id"] == i]
+        monitors.append({
+                        "id": i,
+                        "name": monitor[0]["name"] if monitor else "disconnected",
+                        "activeWorkspace": monitor[0]["activeWorkspace"]["id"] if monitor else "1"
+                        })
+    workspaces = []
+    for i in range(1, 10):
+        workspace = [x for x in raw_workspaces if x["id"] == i]
+        workspaces.append({
+                          "id": i,
+                          "windows": workspace[0]["windows"] if workspace else "0"
+                          })
+    status = {
+        "monitors": monitors,
+        "workspaces": workspaces,
+        "window": {
+            "class": raw_window["class"].capitalize() if raw_window else "Null",
+            "title": raw_window["title"] if raw_window else "Null"
+        }
+    }
+    subprocess.run(["echo", json.dumps(status)])
+
+if __name__ == "__main__":
+    hyprland_status()
+    with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as sock:
+        sock.connect(f"/tmp/hypr/{os.getenv('HYPRLAND_INSTANCE_SIGNATURE')}/.socket2.sock")
+        while True:
+            output = sock.recv(4096).decode("utf-8")
+            if output.split("\n")[0][0:14] == "activewindow>>" or output.split("\n")[0][0:11] == "workspace>>" or output.split("\n")[0][0:15] == "activemonitor>>":
+                hyprland_status()

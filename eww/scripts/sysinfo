@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+import psutil
+import json
+import subprocess
+import os
+import time
+
+while True:
+    with open("/sys/class/power_supply/BAT1/capacity", "r") as f:
+        bat1 = f.read().strip("\n")
+    if int(bat1) <= 20 and not os.environ.get("BAT0_NOTIFIED"):
+        subprocess.run(["notify-send", "WARNING", "First battery low!"])
+        os.environ["BAT0_NOTIFIED"] = "True"
+    elif int(bat1) > 20 and os.environ.get("BAT0_NOTIFIED"):
+        os.environ['BAT0_NOTIFIED'] = ""
+
+    with open("/sys/class/power_supply/BAT0/capacity", "r") as f:
+        bat2 = f.read().strip("\n")
+    if int(bat2) <= 20 and not os.environ.get("BAT1_NOTIFIED"):
+        subprocess.run(["notify-send", "WARNING", "Second battery low!"])
+        os.environ["BAT1_NOTIFIED"] = "True"
+    elif int(bat2) > 20 and os.environ.get("BAT1_NOTIFIED"):
+        os.environ['BAT1_NOTIFIED'] = ""
+
+    sysinfo = {
+        "cpu": int(round(psutil.cpu_percent(interval=1), 0)),
+        "mem": int(round(psutil.virtual_memory().percent, 0)),
+        "temp": int(round(psutil.sensors_temperatures()["coretemp"][0].current, 0)),
+        "bat1": bat1,
+        "bat2": bat2
+    }
+
+    subprocess.run(["echo", f"{json.dumps(sysinfo)}"])
+    time.sleep(1)

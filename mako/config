@@ -1,0 +1,6 @@
+# MAKO CONFIGURATION FILE
+
+default-timeout=5000
+ignore-timeout=0
+
+# vim: ft=conf
