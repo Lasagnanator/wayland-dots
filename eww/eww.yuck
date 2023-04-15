@@ -60,15 +60,15 @@
 ;; WIDGETS ;;
 
 (defwidget current_window []
-  (label :text "${hyprinfo.window.class == "Null" ? "~" : hyprinfo.window.class}"
+  (label :text "${hyprinfo.window.classname == "Null" ? "~" : hyprinfo.window.classname}"
          :class "info"))
 
 (defwidget workspaces []
   (box :space-evenly true
        (for workspace in {hyprinfo.workspaces}
          (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
-                   (label :text "${workspace.id == hyprinfo.monitors[0].activeWorkspace ? " 󰮯 " : "${workspace.windows > 0 ? " 󰊠 " : " 󰧟 "}"}"
-                          :class "workspace-entry ${workspace.id == hyprinfo.monitors[0].activeWorkspace ? "current" : "${workspace.windows > 0 ? "occupied" : "empty"}"}")))))
+                   (label :text "${workspace.id == hyprinfo.monitors[0].active_workspace ? " 󰮯 " : "${workspace.windows > 0 ? " 󰊠 " : " 󰧟 "}"}"
+                          :class "workspace-entry ${workspace.id == hyprinfo.monitors[0].active_workspace ? "current" : "${workspace.windows > 0 ? "occupied" : "empty"}"}")))))
 
 (defwidget datetime []
   (label :text "${datetime}"

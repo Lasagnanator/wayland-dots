@@ -2,7 +2,6 @@
 
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from subprocess import run
 
 class WatchFile(FileSystemEventHandler):
 
@@ -18,15 +17,15 @@ class WatchFile(FileSystemEventHandler):
         if not event.is_directory and event.src_path.endswith(self.filename):
             self.callback()
 
-with open("/sys/class/backlight/intel_backlight/max_brightness", "r") as f:
-    max_brightness = f.read().strip("\n")
+with open('/sys/class/backlight/intel_backlight/max_brightness', 'r') as f:
+    max_brightness = f.read().strip('\n')
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     def callback() -> None:
-        with open("/sys/class/backlight/intel_backlight/brightness", "r") as f:
-            raw_brightness = f.read().strip("\n")
+        with open('/sys/class/backlight/intel_backlight/brightness', 'r') as f:
+            raw_brightness = f.read().strip('\n')
         brightness = int(round(((int(raw_brightness) / int(max_brightness)) * 100), 0))
-        run(["echo", f"{brightness}"])
+        print(brightness, flush=True)
 
     callback()
-    WatchFile("/sys/class/backlight/intel_backlight/", "brightness", callback)
+    WatchFile('/sys/class/backlight/intel_backlight/', 'brightness', callback)
