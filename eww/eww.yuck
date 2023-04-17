@@ -10,15 +10,15 @@
             :geometry   (geometry :width "100%"
                                   :height "32px"
                                   :anchor "top center")
-            (bar_layout))
+            (bar_layout :monitor 0))
 
 ;; LAYOUTS ;;
 
-(defwidget bar_layout []
+(defwidget bar_layout [monitor]
   (centerbox :class "layout-box"
        :orientation "horizontal"
        (left)
-       (center)
+       (center :monitor monitor)
        (right)))
 
 (defwidget left []
@@ -27,12 +27,11 @@
        :space-evenly false
        :halign "start"
        (current_window)))
-       ;; (json_widget)))
 
-(defwidget center []
+(defwidget center [monitor]
   (box :class "center-widgets"
        :orientation "horizontal"
-       (workspaces :alignment "center")))
+       (workspaces :monitor monitor)))
 
 (defwidget right []
   (box :class "right-widgets"
@@ -45,7 +44,7 @@
        (cpu)
        (temp)
        (batteries)
-       (datetime)))
+       (time)))
 
 ; VARIABLES
 (deflisten hyprinfo "scripts/hyprinfo")
@@ -56,28 +55,34 @@
 (defpoll datetime :initial "No time"
                   :interval "1s"
                   "date '+%a, %d %b %H:%M'")
-
+(defpoll time :initial "No time"
+              :interval "1s"
+              "date '+%H:%M'")
 ;; WIDGETS ;;
 
 (defwidget current_window []
   (label :text "${hyprinfo.window.classname == "Null" ? "~" : hyprinfo.window.classname}"
-         :class "info"))
+         :class "info title"))
 
-(defwidget workspaces []
+(defwidget workspaces [?monitor]
   (box :space-evenly true
        (for workspace in {hyprinfo.workspaces}
          (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
-                   (label :text "${workspace.id == hyprinfo.monitors[0].active_workspace ? " 󰮯 " : "${workspace.windows > 0 ? " 󰊠 " : " 󰧟 "}"}"
-                          :class "workspace-entry ${workspace.id == hyprinfo.monitors[0].active_workspace ? "current" : "${workspace.windows > 0 ? "occupied" : "empty"}"}")))))
+                   (label :text "${workspace.id == hyprinfo.monitors[monitor].active_workspace ? " 󰮯 " : "${workspace.windows > 0 ? " 󰊠 " : " 󰧟 "}"}"
+                      :class "workspace-entry ${workspace.id == hyprinfo.monitors[monitor].active_workspace ? "current" : "${workspace.windows > 0 ? "occupied" : "empty"}"}")))))
 
 (defwidget datetime []
   (label :text "${datetime}"
          :class "info"))
 
+(defwidget time []
+  (label :text "${time}"
+         :class "info"))
+
 (defwidget batteries []
   (box :space-evenly false
        :class "info"
-       (label :text "󰁹 "
+       (label :text "󰁹"
             :class "icon")
        (label :text "${sysinfo.bat1}/${sysinfo.bat2}%"
               :class "text")))
@@ -86,7 +91,7 @@
 (defwidget ram []
   (box :space-evenly false
        :class "info"
-       (label :text "󰘚 "
+       (label :text "󰘚"
               :class "icon")
        (label :text "${sysinfo.mem}%"
               :class "text")))
@@ -94,7 +99,7 @@
 (defwidget cpu []
   (box :space-evenly false
        :class "info"
-       (label :text "󰍛 "
+       (label :text "󰍛"
               :class "icon")
        (label :text "${sysinfo.cpu > 0 ? sysinfo.cpu : 1}%"
               :class "text")))
@@ -102,7 +107,7 @@
 (defwidget temp []
   (box :space-evenly false
        :class "info"
-       (label :text "󰔐 "
+       (label :text "󰔐"
               :class "icon")
        (label :text "${sysinfo.temp}°C"
               :class "text")))
@@ -110,7 +115,7 @@
 (defwidget volume []
   (box :space-evenly false
        :class "info"
-       (label :text "󰕾 "
+       (label :text "${volume == "MUTE" ? "󰖁" : "󰕾"}"
               :class "icon")
        (label :text "${volume}${volume == "MUTE" ? "" : "%"}"
               :class "text")))
@@ -118,7 +123,7 @@
 (defwidget brightness []
   (box :space-evenly false
        :class "info"
-       (label :text "󰖙 "
+       (label :text "󰖙"
               :class "icon")
        (label :text "${brightness}%"
               :class "text")))
