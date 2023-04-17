@@ -1,8 +1,15 @@
 // EWW colors
 
+// Variables
+$foreground: #A9B1D6;
+$background: #1F2335;
+$primary: #FF8400;
+$secondary: #9358E3;
+
+// Classes
 .layout-box {
-    background-color: #1F2335;
-    color: #A9B1D6;
+    color: $foreground;
+    background-color: $background;
 }
 
 .workspace-entry {
@@ -10,12 +17,12 @@
     margin: 0px 2px;
 }
 
-.occupied {
-    color: #9358E3;
+.current {
+    color: $primary;
 }
 
-.current {
-    color: #FF8400;
+.occupied {
+    color: $secondary;
 }
 
 .empty {
@@ -24,9 +31,14 @@
 
 .info { 
     .icon {
-        margin: 0px 0px 0px 4px;
+        font: 18px "Material Design Icons";
+        margin: 2px 0px 0px 4px;
+        color: $primary;
     }
     .text {
         margin: 0px 4px 0px 0px;
+    }
+    .title {
+        margin: 0px;
     }
 }
