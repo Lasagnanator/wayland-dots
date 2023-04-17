@@ -74,5 +74,5 @@ if __name__ == '__main__':
         sock.connect(f'/tmp/hypr/{os.environ.get("HYPRLAND_INSTANCE_SIGNATURE")}/.socket2.sock')
         while True:
             output = sock.recv(4096).decode('utf-8')
-            if output.split('\n')[0][0:14] == 'activewindow>>' or output.split('\n')[0][0:11] == 'workspace>>' or output.split('\n')[0][0:15] == 'activemonitor>>':
+            if output.split('\n')[0][0:14] == 'activewindow>>' or output.split('\n')[0][0:11] == 'workspace>>' or output.split('\n')[0][0:12] == 'focusedmon>>':
                 hyprland_status()
