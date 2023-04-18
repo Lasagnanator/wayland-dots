@@ -128,6 +128,14 @@
        (label :text "${brightness}%"
               :class "text")))
 
+(defwidget left-separator [left right]
+  (label :text ""
+         :style "color: ${left}; background-color: ${right}; font: 32px 'Symbols Nerd Font'"))
+
+(defwidget right-separator [left right]
+  (label :text ""
+         :style "color: ${right}; background-color: ${left}; font: 32px 'Symbols Nerd Font'"))
+
 
 ;; TEST ;;
 
