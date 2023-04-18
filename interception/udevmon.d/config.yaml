@@ -1,0 +1,24 @@
+- CMD: mux -c dfk -c keyboard -c trackball -c wacom # -c hybrid -c trackpad 
+- JOB:
+  - mux -i dfk | dual-function-keys -c /etc/interception/dual-function-keys/modifiers.yaml | mux -o keyboard -o trackball -o wacom # -o trackpad -o hybrid  | uinput -c /etc/interception/configurations/hybrid-sys.yaml #
+  - mux -i keyboard | uinput -c /etc/interception/configurations/laptop-keyboard.yaml
+  - mux -i trackball | uinput -c /etc/interception/configurations/logi-trackball.yaml
+  - mux -i wacom | uinput -c /etc/interception/configurations/wacom-tablet.yaml
+#  - mux -i trackpad | uinput -c /etc/interception/configurations/laptop-trackpad.yaml
+#  - mux -i hybrid | uinput -c /etc/interception/configurations/hybrid-track.yaml
+- JOB: intercept -g $DEVNODE | mux -o dfk
+  DEVICE:
+    NAME: AT Translated Set 2 keyboard
+    # EVENTS:
+    #   EV_KEY: [KEY_CAPSLOCK, KEY_TAB, KEY_LEFTALT, KEY_LEFTSHIFT, KEY_RIGHTSHIFT, KEY_ENTER, KEY_SPACE]
+- JOB: intercept -g $DEVNODE | mux -o dfk
+  DEVICE:
+    NAME: Logitech USB Trackball
+#     EVENTS:
+#       EV_KEY: [BTN_LEFT, BTN_RIGHT]
+- JOB: intercept -g $DEVNODE | mux -o dfk
+  DEVICE:
+    NAME: Wacom Intuos BT M Pen
+# - JOB: intercept $DEVNODE | mux -o dfk
+#   DEVICE:
+#     NAME: SynPS/2 Synaptics TouchPad
