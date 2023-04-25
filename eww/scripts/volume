@@ -14,10 +14,10 @@ def get_volume():
 def stop_loop(_):
     raise pulsectl.PulseLoopStop
 
-get_volume()
 with pulsectl.Pulse('event-printer') as pulse:
+    get_volume()
     while True:
-        pulse.event_mask_set('client')
+        pulse.event_mask_set('all')
         pulse.event_callback_set(stop_loop)
         pulse.event_listen()
         get_volume()
