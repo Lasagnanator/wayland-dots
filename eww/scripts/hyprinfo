@@ -2,6 +2,7 @@
 
 import socket
 import os
+import re
 import subprocess
 import json
 from dataclasses import dataclass
@@ -39,6 +40,16 @@ class Hyprinfo:
         return json
 
 
+def class_filter(name: str) -> str:
+    if bool(re.search('wezterm', name)):
+        window_name = 'terminal'
+    elif bool(re.search('moonlight', name)):
+        window_name = 'moonlight'
+    else:
+        window_name = name
+    return window_name
+
+
 def hyprland_status():
     hyprinfo: Hyprinfo = Hyprinfo(
         monitors = [],
@@ -62,7 +73,7 @@ def hyprland_status():
          ))
     raw_data = json.loads(subprocess.run(['hyprctl', 'activewindow', '-j'], capture_output=True).stdout)
     hyprinfo.window = Window(
-        classname = raw_data['class'].capitalize() if raw_data else 'Null',
+        classname = class_filter(raw_data['class']).capitalize() if raw_data else 'Null',
         title = raw_data['title'] if raw_data else 'Null'
     )
     print(json.dumps(hyprinfo.toJSON()), flush=True)
