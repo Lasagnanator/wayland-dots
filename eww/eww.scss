@@ -1,29 +1,43 @@
 // EWW colors
 
 // Variables
-$foreground: #A9B1D6;
-$background: #1F2335;
+$fg: #A9B1D6;
+$bg: #1F2335;
 $primary: #FF8400;
 $secondary: #9358E3;
 
-// Classes
-.layout-box {
-    color: $foreground;
-    background-color: $background;
+//\\ MAIN BAR //\\
+
+.bar {
+    background: transparent;
 }
+
+
+.layout-box {
+    color: $fg;
+    margin: 8px 8px 0px 8px;
+
+    .left-widgets, .center-widgets, .right-widgets {
+        background: $bg;
+        border-radius: 5px;
+        padding: 0px 4px;
+    }
+}
+
 
 .workspace-entry {
     font: 24px "Material Design Icons";
-    margin: 0px 2px;
+    padding: 0px 4px;
+
+    &.current {
+        color: $primary;
+    }
+
+    &.occupied {
+        color: $secondary;
+    }
 }
 
-.current {
-    color: $primary;
-}
-
-.occupied {
-    color: $secondary;
-}
 
 .empty {
     font: 32px "Material Design Icons";
@@ -41,4 +55,10 @@ $secondary: #9358E3;
     .title {
         margin: 0px;
     }
+}
+
+// DASHBOARD
+
+.dashboard {
+    background: transparent;
 }
