@@ -24,14 +24,30 @@ config.font_size = 11.0
 config.cell_width = 0.8
 
 config.keys = {
-  {
-    key = ' ',
-    mods = 'SHIFT',
-    action = wezterm.action.SendKey {
+    {
+        key = ' ',
+        mods = 'SHIFT',
+        action = wezterm.action.SendKey {
             key = ' '
         },
-  },
+    },
+    {
+        key = 'Enter',
+        mods = 'SUPER|CTRL',
+        action = wezterm.action.SpawnWindow,
+    },
+    {
+        key = ';',
+        mods = 'CTRL',
+        action = wezterm.action.SendKey {
+            key = 'Escape'
+        },
+    },
 }
+
+-- wezterm.on('format-window-title', function ()
+--     return 'Terminal'
+-- end)
 
 -- And finally, return the configuration to wezterm
 return config
