@@ -3,17 +3,19 @@
 // Variables
 $fg: #A9B1D6;
 $bg: #1F2335;
+$bg_faded: #363d5c;
 $primary: #FF8400;
 $secondary: #9358E3;
 
 //\\ MAIN BAR //\\
 
-.bar {
+.bar0, .bar1, .bar2 {
     background: transparent;
 }
 
 
 .layout-box {
+
     color: $fg;
     margin: 8px 8px 0px 8px;
 
@@ -26,6 +28,7 @@ $secondary: #9358E3;
 
 
 .workspace-entry {
+
     font: 24px "Material Design Icons";
     padding: 0px 4px;
 
@@ -36,29 +39,107 @@ $secondary: #9358E3;
     &.occupied {
         color: $secondary;
     }
+
+    &.empty {
+        font: 32px "Material Design Icons";
+    }
 }
 
-
-.empty {
-    font: 32px "Material Design Icons";
-}
 
 .info { 
+
     .icon {
         font: 18px "Material Design Icons";
         margin: 2px 0px 0px 4px;
         color: $primary;
     }
+
     .text {
         margin: 0px 4px 0px 0px;
     }
+
     .title {
         margin: 0px;
     }
+
+    .circle {
+        color: $secondary;
+        margin: 4px;
+    }
 }
 
-// DASHBOARD
+.bar_button {
+    font: 24px "Symbols Nerd Font";
+    color: $primary;
+    margin: 0px 4px;
+}
+
+//\\ DASHBOARD //\\
 
 .dashboard {
-    background: transparent;
+    // background: transparent;
+    background-image: url('/home/lasagnanator/Pictures/Wallpapers/synth_city.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.tile {
+    
+    background: $bg;
+    border-radius: 16px;
+    padding: 20px;
+    margin: 6px;
+    
+    .icon {
+        font: 48px "Material Design Icons";
+        color: $bg_faded;
+    }
+
+    .circle {
+        color: $secondary;
+    }
+
+    .text {
+        color: $primary;
+        // margin: 8px;
+   }
+
+    .button {
+        font: 48px "Material Design Icons";
+        color: $secondary;
+    }
+    
+}
+
+.profile {
+
+    @extend .tile;
+    
+    .propic {
+        background-image: url("/home/lasagnanator/Pictures/octopus_skull_synth.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        border-radius: 500px;
+        margin: 16px;
+    }
+
+}
+
+.datetime {
+    
+    color: $fg;
+
+    // .week {
+    //     
+    // }
+
+    // .date {
+    //
+    // }
+
+    // .time {
+    //
+    // }
+
 }

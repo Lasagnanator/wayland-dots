@@ -1,0 +1,111 @@
+;; DASHBOARD WIDGETS ;;
+
+(defwidget dash_meter [icon value unit]
+  (box :class "tile"
+       :valign "center"
+       :halign "center"
+       :width dash_side_size 
+       :height dash_side_size
+       :orientation "vertical"
+       (overlay
+         (circular-progress :class "circle"
+                            :value value
+                            :thickness 4
+                            :start-at 75
+                            :height 70)
+         (label :text icon
+                :class "icon")
+         (label :text "${value}${unit}"
+                :class "text"))))
+
+(defwidget dash_button [action icon]
+  (box :class "tile"
+       :valign "center"
+       :halign "center"
+       :width dash_side_size 
+       :height dash_side_size
+       (eventbox :onclick action
+                 (label :text icon
+                        :class "button"))))
+
+(defwidget updates []
+  (box :class "tile"
+       :halign "center"
+       :width dash_side_size 
+       :height dash_side_size
+       (overlay
+         (box
+           :space-evenly true ;useless?
+           (label :text "${updates.pacman}"
+                  :class "text")
+           (label :text "${updates.aur}"
+                  :class "text"))
+         (label :text ""
+                :class "icon"))))
+
+(defwidget datetime []
+  (box :class "tile"
+       :halign "center"
+       :orientation "vertical"
+       :width "${dash_side_size * 2}" 
+       :height "${dash_side_size * 2}" 
+       (box :class "datetime"
+            :halign "start"
+         (label :text "${datetime.weekday},"
+                :class "week"))
+       (box :class "datetime"
+            :halign "end"
+         (label :text "${datetime.day} ${datetime.month}, ${datetime.year}"
+                :class "date"))
+       (box :class "datetime"
+         (label :text "${datetime.time}"
+                :class "time"))))
+
+(defwidget profile []
+  (box :class "profile"
+       :orientation "vertical"
+       :space-evenly false
+       :width "${dash_side_size * 2}"  
+       :height "${dash_side_size * 3}"  
+       (box :class "propic"
+             :width "${dash_side_size * 1.6}"  
+             :height "${dash_side_size * 1.6}")  
+       (label :text "Greetings, ${user}!"
+              :class "text"
+              :width "${dash_side_size}"  
+              :height "${dash_side_size}")))  
+
+
+;; DEMO TILES ;;
+
+(defwidget small_sq_tile [text]
+  (box :class "tile"
+       :halign "center"
+       :width dash_side_size 
+       :height dash_side_size
+       (label :text text
+              :class "text")))
+
+(defwidget big_sq_tile [text]
+  (box :class "tile"
+       :halign "center"
+       :width "${dash_side_size * 2}" 
+       :height "${dash_side_size * 2}" 
+       (label :text text
+              :class "text")))
+
+(defwidget rectangular_tile_horizontal [text]
+  (box :class "tile"
+       :halign "center"
+       :width "${dash_side_size * 2}"  
+       :height dash_side_size
+       (label :text text
+              :class "text")))
+
+(defwidget rectangular_tile_vertical []
+  (box :class "tile"
+       :halign "center"
+       :width "${dash_side_size * 2}"  
+       :height "${dash_side_size * 3}"  
+       (label :text "Profile"
+              :class "text")))

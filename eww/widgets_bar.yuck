@@ -1,0 +1,90 @@
+;; BAR WIDGETS ;;
+
+(defwidget current_window []
+  (label :text "${hyprinfo.window.classname == "Null" ? "~" : hyprinfo.window.title}"
+         :class "info title"))
+
+(defwidget workspaces [?monitor]
+  (box :space-evenly true
+       (for workspace in {hyprinfo.workspaces}
+         ;; (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+                   (label :text "${workspace.id == hyprinfo.monitors[monitor].active_workspace ? "󰮯" : "${workspace.windows > 0 ? "󰊠" : "󰧟"}"}"
+                      :class "workspace-entry ${workspace.id == hyprinfo.monitors[monitor].active_workspace ? "current" : "${workspace.windows > 0 ? "occupied" : "empty"}"}"))))
+
+(defwidget time []
+  (label :text "${datetime.time}"
+         :class "info"))
+
+(defwidget batteries []
+  (box :space-evenly false
+       :class "info"
+       ;; (label :text "󰁹"
+       ;;        :class "icon")
+       (box :width 48
+         (circular-progress :class "circle"
+                            :value "${sysinfo.bat1 <= 100 ? sysinfo.bat1 : 100}"
+                            :start-at 75
+                            :thickness 2
+                            :clockwise false)
+         (circular-progress :class "circle"
+                            :value "${sysinfo.bat2 <= 100 ? sysinfo.bat2 : 100}"
+                            :start-at 75
+                            :thickness 2
+                            :clockwise true))))
+
+(defwidget ram []
+  (box :space-evenly false
+       :class "info"
+       (label :text "󰘚"
+              :class "icon")
+       (label :text "${sysinfo.mem}%"
+              :class "text")))
+
+(defwidget cpu []
+  (box :space-evenly false
+       :class "info"
+       (label :text "󰍛"
+              :class "icon")
+       (label :text "${sysinfo.cpu > 0 ? sysinfo.cpu : 1}%"
+              :class "text")))
+
+(defwidget temp []
+  (box :space-evenly false
+       :class "info"
+       (label :text "󰔐"
+              :class "icon")
+       (label :text "${sysinfo.temp}°C"
+              :class "text")))
+
+(defwidget volume []
+  (box :space-evenly false
+       :class "info"
+       (label :text "${volume == "MUTE" ? "󰖁" : "󰕾"}"
+              :class "icon")
+       (label :text "${volume}${volume == "MUTE" ? "" : "%"}"
+              :class "text")))
+
+(defwidget brightness []
+  (box :space-evenly false
+       :class "info"
+       (label :text "󰖙"
+              :class "icon")
+       (label :text "${brightness}%"
+              :class "text")))
+
+(defwidget dashboard_button []
+  (eventbox :onclick "eww open --toggle dashboard" ; eww open --toggle bar
+    (label :text ""
+           :class "bar_button")))
+
+
+;; PROTO
+
+(defwidget left-separator [left right]
+  (label :text ""
+         :style "color: ${left}; background-color: ${right}; font: 32px 'Symbols Nerd Font'"))
+
+(defwidget right-separator [left right]
+  (label :text ""
+         :style "color: ${right}; background-color: ${left}; font: 32px 'Symbols Nerd Font'"))
+

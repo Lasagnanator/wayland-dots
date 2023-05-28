@@ -1,27 +1,56 @@
 ;; EWW, KRAKEN'S BILE ;;
 
+
+;; IMPORTS ;;
+
+(include "widgets_bar.yuck")
+(include "widgets_dashboard.yuck")
+(include "variables.yuck")
+
+
 ;; WINDOWS ;;
 
-(defwindow  bar
-            :monitor    0
-            :stacking   "bottom"
-            ;; :windowtype "dock"
-            :exclusive  true
-            :focusable  false
-            :geometry   (geometry :width "100%"
-                                  :height "32px"
-                                  :anchor "top center")
+(defwindow  bar0
+            :monitor 0
+            :stacking "bottom"
+            :exclusive true
+            ;; :focusable false
+            :geometry (geometry :width "100%"
+                                :height "32px"
+                                :anchor "top center")
             (bar_layout :monitor 0))
 
-(defwindow dashboard
-            :monitor    0
-            :stacking   "overlay"
-            :focusable  false
-            :geometry   (geometry :width "100%"
-                                  :height "100%")
-            (dashtemp))
+(defwindow  bar1
+            :monitor 1
+            :stacking "bottom"
+            :exclusive true
+            :focusable false
+            :geometry (geometry :width "100%"
+                                :height "32px"
+                                :anchor "top center")
+            (bar_layout :monitor 1))
 
-;; LAYOUTS ;;
+(defwindow  bar2
+            :monitor 2
+            :stacking "bottom"
+            :exclusive true
+            :focusable false
+            :geometry (geometry :width "100%"
+                                :height "32px"
+                                :anchor "top center")
+            (bar_layout :monitor 2))
+
+(defwindow dashboard
+            :monitor 0
+            :stacking "overlay"
+            :focusable true
+            :geometry (geometry :width "100%"
+                                :height "100%"
+                               :anchor "bottom center")
+            (dashboard_layout))
+
+
+;; BAR LAYOUTS ;;
 
 (defwidget bar_layout [monitor]
   (centerbox :class "layout-box"
@@ -50,113 +79,76 @@
        :halign "end"
        (volume)
        (brightness)
-       (ram)
-       (cpu)
-       (temp)
+       ;; (ram)
+       ;; (cpu)
+       ;; (temp)
        (batteries)
        (time)))
 
-; VARIABLES
-(deflisten hyprinfo "scripts/hyprinfo")
-(deflisten sysinfo "scripts/sysinfo")
-(deflisten brightness "scripts/brightness")
-(deflisten volume "scripts/volume")
 
-(defpoll datetime :initial "No time"
-                  :interval "1s"
-                  "date '+%a, %d %b %H:%M'")
-(defpoll time :initial "No time"
-              :interval "1s"
-              "date '+%H:%M'")
-;; WIDGETS ;;
+;; DASHBOARD LAYOUTS ;;
 
-(defwidget current_window []
-  (label :text "${hyprinfo.window.classname == "Null" ? "~" : hyprinfo.window.classname}"
-         :class "info title"))
+(defwidget dashboard_layout []
+  (box :class "dashboard_main"
+       :space-evenly false
+       :halign "center"
+       (left_column)
+       (center_column)
+       (right_column)
+       (power_cluster)))
 
-(defwidget workspaces [?monitor]
-  (box :space-evenly true
-       (for workspace in {hyprinfo.workspaces}
-         (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
-                   (label :text "${workspace.id == hyprinfo.monitors[monitor].active_workspace ? "󰮯" : "${workspace.windows > 0 ? "󰊠" : "󰧟"}"}"
-                      :class "workspace-entry ${workspace.id == hyprinfo.monitors[monitor].active_workspace ? "current" : "${workspace.windows > 0 ? "occupied" : "empty"}"}")))))
+(defwidget left_column []
+  (box :orientation "vertical"
+       :valign "center"
+       :space-evenly false
+       (profile)
+       (box 
+         (small_sq_tile :text "Bluetooth")
+         (updates))))
 
-(defwidget datetime []
-  (label :text "${datetime}"
-         :class "info"))
+(defwidget center_column []
+  (box :orientation "vertical"
+       :valign "center"
+       :space-evenly false
+       (box :orientation "vertical"
+         (rectangular_tile_horizontal :text "Boh")
+         (rectangular_tile_horizontal :text "Network"))
+       (big_sq_tile :text "Weather")))
 
-(defwidget time []
-  (label :text "${time}"
-         :class "info"))
+(defwidget right_column []
+  (box :orientation "vertical"
+       :valign "center"
+       (datetime)
+       (info_cluster)))
 
-(defwidget batteries []
-  (box :space-evenly false
-       :class "info"
-       (label :text "󰁹"
-            :class "icon")
-       (label :text "${sysinfo.bat1}/${sysinfo.bat2}%"
-              :class "text")))
-    
+(defwidget info_cluster []
+  (box :orientation "vertical"
+    (box
+      (dash_meter :icon "󰍛" ; CPU
+         :value "${sysinfo.cpu}"
+         :unit "%")
+      (dash_meter :icon "󰔐" ; TEMP
+                  :value "${sysinfo.temp}"
+                  :unit "°C"))
+    (box
+      (dash_meter :icon "󰘚" ; RAM
+                  :value "${sysinfo.mem}"
+                  :unit "%")
+      (dash_meter :icon "󰋊" ; DISK
+                  :value "${sysinfo.disk}"
+                  :unit "%"))))
 
-(defwidget ram []
-  (box :space-evenly false
-       :class "info"
-       (label :text "󰘚"
-              :class "icon")
-       (label :text "${sysinfo.mem}%"
-              :class "text")))
-
-(defwidget cpu []
-  (box :space-evenly false
-       :class "info"
-       (label :text "󰍛"
-              :class "icon")
-       (label :text "${sysinfo.cpu > 0 ? sysinfo.cpu : 1}%"
-              :class "text")))
-
-(defwidget temp []
-  (box :space-evenly false
-       :class "info"
-       (label :text "󰔐"
-              :class "icon")
-       (label :text "${sysinfo.temp}°C"
-              :class "text")))
-
-(defwidget volume []
-  (box :space-evenly false
-       :class "info"
-       (label :text "${volume == "MUTE" ? "󰖁" : "󰕾"}"
-              :class "icon")
-       (label :text "${volume}${volume == "MUTE" ? "" : "%"}"
-              :class "text")))
-
-(defwidget brightness []
-  (box :space-evenly false
-       :class "info"
-       (label :text "󰖙"
-              :class "icon")
-       (label :text "${brightness}%"
-              :class "text")))
-
-(defwidget left-separator [left right]
-  (label :text ""
-         :style "color: ${left}; background-color: ${right}; font: 32px 'Symbols Nerd Font'"))
-
-(defwidget right-separator [left right]
-  (label :text ""
-         :style "color: ${right}; background-color: ${left}; font: 32px 'Symbols Nerd Font'"))
-
-(defwidget dashboard_button []
-  (eventbox :onclick "eww open --toggle dashboard"
-    (label :text "")))
-
-(defwidget dashtemp []
-  (box :space-evenly false
-       :class "info"
-       (label :text "󰔐"
-              :class "icon")
-       (label :text "${sysinfo.temp}°C"
-              :class "text")))
+(defwidget power_cluster []
+  (box :orientation "vertical"
+       :valign "center"
+       (dash_button :icon "󰐥" ; SHUTDOWN
+                    :action "shutdown now")
+       (dash_button :icon "󰜉" ; REBOOT
+                    :action "reboot")
+       (dash_button :icon "󰌾" ; LOCK
+                    :action "notify-send Bruh")
+       (dash_button :icon "󰤄" ; SLEEP
+                    :action "notify-send Bruh")))
 
 
 ;; TEST ;;

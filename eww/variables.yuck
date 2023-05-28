@@ -1,0 +1,26 @@
+;; VARIABLES ;;
+
+;; Static
+(defvar dash_side_size 160)
+
+;; Poll
+(defpoll datetime :initial '{}'
+                  :interval "1s"
+                  "scripts/datetime")
+(defpoll updates :initial '{"pacman": 75, "aur": 0}'
+                 :interval "5m"
+                 "scripts/updates")
+(defpoll user :initial "Anon"
+              :interval "1h"
+              "scripts/username")
+(defpoll home :initial "/home/"
+              :interval "1h"
+              "echo $HOME")
+
+;; Listen
+(deflisten hyprinfo :initial '{"monitors": [], "workspaces": [], "window": {"classname":"~"}}'
+                    "scripts/hyprinfo")
+(deflisten sysinfo :initial '{"bat1": 100, "bat2": 100}'
+                   "scripts/sysinfo")
+(deflisten brightness "scripts/brightness")
+(deflisten volume "scripts/volume")
