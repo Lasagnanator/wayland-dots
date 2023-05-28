@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+
+import datetime as dt
+import json
+
+
+now = dt.datetime.now()
+dt_info = {
+            "weekday": now.strftime("%A"),
+            "day" : now.strftime("%d"),
+            "month" : now.strftime("%b"),
+            "year" : now.strftime("%Y"),
+            "time" : now.strftime("%H:%M"),
+        }
+
+print(json.dumps(dt_info), flush=True)

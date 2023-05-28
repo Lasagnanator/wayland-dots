@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+
+import subprocess
+import json
+from dataclasses import dataclass
+
+
+@dataclass
+class Updates:
+    pacman: int
+    aur: int
+
+
+if __name__ == "__main__":
+    updates = Updates(
+        pacman = subprocess.run(['checkupdates'], capture_output=True).stdout.decode('UTF-8').count('\n'),
+        aur = subprocess.run(['rua', 'upgrade', '--printonly'], capture_output=True).stdout.decode('UTF-8').count('\n'),
+    )
+
+    print(json.dumps(updates.__dict__), flush=True)
