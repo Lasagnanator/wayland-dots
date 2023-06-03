@@ -6,6 +6,8 @@ $bg: #1F2335;
 $bg_faded: #363d5c;
 $primary: #FF8400;
 $secondary: #9358E3;
+$dash_font_size: 48px;
+$icon_size: 64px;
 
 //\\ MAIN BAR //\\
 
@@ -91,7 +93,12 @@ $secondary: #9358E3;
     margin: 6px;
     
     .icon {
-        font: 48px "Material Design Icons";
+        font: $icon_size "Material Design Icons";
+        color: $bg_faded;
+    }
+
+    .icon_arch {
+        font: $icon_size "Symbols Nerd Font";
         color: $bg_faded;
     }
 
@@ -100,12 +107,13 @@ $secondary: #9358E3;
     }
 
     .text {
+        font: 16px "Hack";
         color: $primary;
         // margin: 8px;
    }
 
     .button {
-        font: 48px "Material Design Icons";
+        font: $icon_size "Material Design Icons";
         color: $secondary;
     }
     

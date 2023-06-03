@@ -34,14 +34,18 @@
        :width dash_side_size 
        :height dash_side_size
        (overlay
-         (box
-           :space-evenly true ;useless?
-           (label :text "${updates.pacman}"
-                  :class "text")
-           (label :text "${updates.aur}"
-                  :class "text"))
          (label :text ""
-                :class "icon"))))
+                :class "icon_arch")
+         (box
+           ;; :space-evenly true ;useless?
+           (label :text "0"
+                  :class "text")
+           (label :text "0"
+                  :class "text")))))
+           ;; (label :text "${updates.pacman}"
+           ;;        :class "text")
+           ;; (label :text "${updates.aur}"
+           ;;        :class "text")))))
 
 (defwidget datetime []
   (box :class "tile"
