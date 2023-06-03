@@ -14,14 +14,12 @@ end
 -- For example, changing the color scheme:
 config.color_scheme = 'tokyonight_night'
 -- Possible colorschemes: AdventureTime, Andromeda, tokyonight_variant, Tokyo Night [Variant] (Gogh)
-
+-- config.default_prog = { 'bash' } -- remove for other login shell
 config.window_background_opacity = 0.85
-
 config.hide_tab_bar_if_only_one_tab = true
-
-config.font = wezterm.font ( 'Iosevka Term', { weight = 'DemiBold' } )
+config.font = wezterm.font ( 'JetBrains Mono', { weight = 'Regular' } )
 config.font_size = 11.0
-config.cell_width = 0.8
+-- config.cell_width = 1
 
 config.keys = {
     {
