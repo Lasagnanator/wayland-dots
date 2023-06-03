@@ -11,3 +11,10 @@ while read DIR; do
     rm -rf ${HOME}/.config/${DIR}
     ln -s ${PWD}/${DIR} ${HOME}/.config/
 done <<< $DIRS
+
+if [[ ! -d ${HOME}/.config/fish ]]; then
+    mkdir ${HOME}/.config/fish
+fi
+
+rm -f ${HOME}/.config/fish/config.fish
+ln -s ${PWD}/config.fish ${HOME}/.config/fish/config.fish
