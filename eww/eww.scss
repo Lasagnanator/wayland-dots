@@ -137,17 +137,23 @@ $icon_size: 64px;
 .datetime {
     
     color: $fg;
+    font: $dash_font_size "JetBrains Mono";
 
-    // .week {
-    //     
-    // }
+    .week {
+        font-size: 44px;
+    }
 
-    // .date {
-    //
-    // }
+    .day {
+        font-size: 36px;
+    }
 
-    // .time {
-    //
-    // }
+    .month {
+        font-size: 48px;
+    }
+
+    .time {
+        font-size: 64px;
+        padding-top: 5px;
+    }
 
 }

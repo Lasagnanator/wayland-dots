@@ -51,19 +51,25 @@
   (box :class "tile"
        :halign "center"
        :orientation "vertical"
+       :space-evenly false
        :width "${dash_side_size * 2}" 
        :height "${dash_side_size * 2}" 
        (box :class "datetime"
             :halign "start"
-         (label :text "${datetime.weekday},"
-                :class "week"))
+            (label :text "${datetime.weekday},"
+                   :class "week"))
        (box :class "datetime"
             :halign "end"
-         (label :text "${datetime.day} ${datetime.month}, ${datetime.year}"
-                :class "date"))
+            (label :text " THE ${datetime.day} OF"
+                   :class "day"))
        (box :class "datetime"
-         (label :text "${datetime.time}"
-                :class "time"))))
+            :halign "start"
+            (label :text "${datetime.month}"
+                   :class "month"))
+       (box :class "datetime"
+            :halign "center"
+            (label :text "${datetime.time}"
+                   :class "time"))))
 
 (defwidget profile []
   (box :class "profile"
