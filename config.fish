@@ -35,10 +35,10 @@ if status is-interactive
     alias itop 'sudo intel_gpu_top'
     alias dbeaver-cmp '/home/lasagnanator/Git/dbeaver/product/community/target/products/org.jkiss.dbeaver.core.product/linux/gtk/x86_64/dbeaver/dbeaver'
     # Python
-    alias vFlask 'source /home/lasagnanator/VENV/vFlask/bin/activate'
-    alias flaskHosting 'source /home/lasagnanator/VENV/flaskHosting/bin/activate'
-    alias mHealth 'source /home/lasagnanator/VENV/mHealth/bin/activate'
-    alias vJupyter 'source /home/lasagnanator/VENV/vJupyter/bin/activate'
+    alias vFlask 'source /home/lasagnanator/VENV/vFlask/bin/activate.fish'
+    alias flaskHosting 'source /home/lasagnanator/VENV/flaskHosting/bin/activate.fish'
+    alias mHealth 'source /home/lasagnanator/VENV/mHealth/bin/activate.fish'
+    alias vJupyter 'source /home/lasagnanator/VENV/vJupyter/bin/activate.fish'
     # CD to some shit
     alias ssh-homeserver 'source ssh-homeserver'
     alias mount-homeserver 'source mount-homeserver'
