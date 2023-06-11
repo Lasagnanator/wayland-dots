@@ -27,6 +27,7 @@ if status is-interactive
     alias vi 'nvim'
     alias vim 'nvim'
     alias sv 'sudo -E nvim'
+    alias g 'git'
     alias xp '. ranger'
     alias lz 'lazygit'
     alias bt 'bluetoothctl'
@@ -56,7 +57,7 @@ if status is-interactive
 
     ##### FZF #####
     set fzf_fd_opts --hidden --exclude=.git --no-ignore
-    fzf_configure_bindings --variable=\e\cv --directory=\cf
+    fzf_configure_bindings --variable=\e\cv --directory=\cq
 
     ##### STARSHIP #####
     starship init fish | source
