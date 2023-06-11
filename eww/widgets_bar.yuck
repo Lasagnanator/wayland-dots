@@ -7,9 +7,9 @@
 (defwidget workspaces [?monitor]
   (box :space-evenly true
        (for workspace in {hyprinfo.workspaces}
-         ;; (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
-                   (label :text "${workspace.id == hyprinfo.monitors[monitor].active_workspace ? "󰮯" : "${workspace.windows > 0 ? "󰊠" : "󰧟"}"}"
-                      :class "workspace-entry ${workspace.id == hyprinfo.monitors[monitor].active_workspace ? "current" : "${workspace.windows > 0 ? "occupied" : "empty"}"}"))))
+         (eventbox :onclick "hyprctl dispatch workspace ${workspace.workspace_id}"
+                   (label :text "${workspace.workspace_id == hyprinfo.monitors[monitor].active_workspace ? "󰮯" : "${workspace.windows > 0 ? "󰊠" : "󰧟"}"}"
+                          :class "workspace-entry ${workspace.workspace_id == hyprinfo.monitors[monitor].active_workspace ? "current" : "${workspace.windows > 0 ? "occupied" : "empty"}"}")))))
 
 (defwidget time []
   (label :text "${datetime.time}"
