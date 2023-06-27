@@ -15,13 +15,15 @@ while read DIR; do
 done <<< $DIRS
 
 if command -v fish &>/dev/null; then
-    if [[ ! -f ${HOME}/.config/fish/functions/fisher.fish ]]; then
-        fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | \
-                 source && fisher install (tr '\n' ' ' < ${PWD}/fish/plugins | sed '$s/ $//' | psub)"
-    fi
     rm -f ${HOME}/.config/fish/config.fish
     ln -s ${PWD}/fish/config.fish ${HOME}/.config/fish/config.fish
     if [[ ! -d ${HOME}/.config/fish/bait ]]; then mkdir -p ${HOME}/.config/fish/bait; fi
     rm -f ${HOME}/.config/fish/bait/_*.fish
     ln -s ${PWD}/fish/bait/_*.fish ${HOME}/.config/fish/bait/
+    rm -f ${HOME}/.config/fish/fish_plugins
+    ln -s ${PWD}/fish/fish_plugins ${HOME}/.config/fish/fish_plugins
+    if [[ ! -f ${HOME}/.config/fish/functions/fisher.fish ]]; then
+        fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | \
+                 source && fisher update"
+    fi
 fi
