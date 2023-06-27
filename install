@@ -1,20 +1,27 @@
 #!/bin/bash
 
 # Change directory to the correct one
-cd $(dirname $0)
+cd $(dirname $0) || exit
 
 # List directories to be copied
 DIRS=$(ls -l | grep -E '^d' | cut -s -d " " -f 9)
 
 # Remove and copy dotfiles directories
 while read DIR; do
-    rm -rf ${HOME}/.config/${DIR}
-    ln -s ${PWD}/${DIR} ${HOME}/.config/
+    if [[ ${DIR} != 'fish' ]]; then
+        rm -rf ${HOME}/.config/${DIR}
+        ln -s ${PWD}/${DIR} ${HOME}/.config/
+    fi
 done <<< $DIRS
 
-if [[ ! -d ${HOME}/.config/fish ]]; then
-    mkdir ${HOME}/.config/fish
+if command -v fish &>/dev/null; then
+    if [[ ! -f ${HOME}/.config/fish/functions/fisher.fish ]]; then
+        fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | \
+                 source && fisher install (tr '\n' ' ' < ${PWD}/fish/plugins | sed '$s/ $//' | psub)"
+    fi
+    rm -f ${HOME}/.config/fish/config.fish
+    ln -s ${PWD}/fish/config.fish ${HOME}/.config/fish/config.fish
+    if [[ ! -d ${HOME}/.config/fish/bait ]]; then mkdir -p ${HOME}/.config/fish/bait; fi
+    rm -f ${HOME}/.config/fish/bait/_*.fish
+    ln -s ${PWD}/fish/bait/_*.fish ${HOME}/.config/fish/bait/
 fi
-
-rm -f ${HOME}/.config/fish/config.fish
-ln -s ${PWD}/config.fish ${HOME}/.config/fish/config.fish
