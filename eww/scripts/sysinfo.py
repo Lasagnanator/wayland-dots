@@ -20,6 +20,7 @@ class Sysinfo:
     disk: int
     bat1: int
     bat2: int
+    charging: bool
 
 
 if __name__ == "__main__":
@@ -32,6 +33,7 @@ if __name__ == "__main__":
             disk=int(round(psutil.disk_usage("/").percent, 0)),
             bat1=0,
             bat2=0,
+            charging=psutil.sensors_battery().power_plugged,
         )
 
         with open("/sys/class/power_supply/BAT1/capacity", "r", encoding="utf-8") as f:
