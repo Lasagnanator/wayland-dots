@@ -25,10 +25,10 @@ class WatchFile(FileSystemEventHandler):
             self.callback()
 
 
-with open("/sys/class/backlight/intel_backlight/max_brightness", "r", encoding="utf-8") as file:
-    max_brightness = file.read().strip("\n")
-
 if __name__ == "__main__":
+
+    with open("/sys/class/backlight/intel_backlight/max_brightness", "r", encoding="utf-8") as file:
+        max_brightness = file.read().strip("\n")
 
     def get_brightness_from_file() -> None:
         """Get brightness from the system file."""
