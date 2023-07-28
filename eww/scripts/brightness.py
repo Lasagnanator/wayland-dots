@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env venv/bin/python
 
 """Get brightness in real time."""
 

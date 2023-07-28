@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env venv/bin/python
 
 """Fetches info about pacman and AUR updates."""
 
