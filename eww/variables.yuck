@@ -12,7 +12,7 @@
                  "scripts/updates")
 (defpoll user :initial "Anon"
               :interval "1h"
-              "scripts/username")
+              "echo \$\{USER^\}")
 (defpoll home :initial "/home/"
               :interval "1h"
               "echo $HOME")
