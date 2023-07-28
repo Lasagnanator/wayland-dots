@@ -4,23 +4,26 @@
 (defvar dash_side_size 160)
 
 ;; Poll
-(defpoll datetime :initial '{}'
-                  :interval "1s"
-                  "scripts/datetime")
-(defpoll updates :initial '{"pacman": 75, "aur": 0}'
-                 :interval "5m"
-                 "scripts/updates")
 (defpoll user :initial "Anon"
               :interval "1h"
               "echo \$\{USER^\}")
 (defpoll home :initial "/home/"
               :interval "1h"
               "echo $HOME")
+(defpoll datetime :initial '{}'
+                  :interval "1s"
+                  "cd scripts; ./now.py")
+(defpoll updates :initial '{"pacman": 0, "aur": 0}'
+                 :interval "1m"
+                 "cd scripts; ./updates.py")
+(defpoll network :initial '{"name": "No internet", "ip_addr": "-", "signal": 0}'
+                 :interval "5s"
+                 "cd scripts; ./network.py")
 
 ;; Listen
 (deflisten hyprinfo :initial '{"monitors": [], "workspaces": [], "window": {"classname":"~"}}'
-                    "scripts/hyprinfo")
+                    "cd scripts; ./hyprinfo.py")
 (deflisten sysinfo :initial '{"bat1": 100, "bat2": 100}'
-                   "scripts/sysinfo")
-(deflisten brightness "scripts/brightness")
-(deflisten volume "scripts/volume")
+                   "cd scripts; ./sysinfo.py")
+(deflisten brightness "cd scripts; ./brightness.py")
+(deflisten volume "sleep 1; cd scripts; ./volume.py")
