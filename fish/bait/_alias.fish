@@ -13,6 +13,7 @@ alias sv 'sudo -E nvim'
 alias g 'git'
 alias r 'ranger-cd'
 alias lz 'lazygit'
+alias bt 'bluetoothctl'
 
 # Packet managers
 alias pac 'sudo pacman'
