@@ -1,0 +1,96 @@
+// DASHBOARD //
+
+@use "variables.scss";
+
+.dashboard {
+  background: transparent;
+  // background-image: url('/home/lasagnanator/Pictures/Wallpapers/synth_city.png');
+  // background-repeat: no-repeat;
+  // background-size: 100%;
+}
+
+.dashboard_main {
+  background: $bg_faded;
+  border-radius: 16px;
+  padding: 10px;
+}
+
+.tile {
+  background: $bg;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 6px;
+
+  .icon {
+    font: $icon_size "Material Design Icons";
+    color: $bg_faded;
+    &.network {
+      padding-left: 4px;
+    }
+  }
+
+  .icon_arch {
+    // font: $icon_size "Symbols Nerd Font";
+    font: $icon_size "Material Design Icons";
+    color: $bg_faded;
+  }
+
+  .circle {
+    color: $secondary;
+  }
+
+  .text {
+    font: 16px "JetBrains Mono";
+    color: $primary;
+    // margin: 8px;
+  }
+
+  .button {
+    font: $icon_size "Material Design Icons";
+    color: $secondary;
+  }
+}
+
+.profile {
+  @extend .tile;
+  .propic {
+    background-image: url("/home/lasagnanator/Pictures/octopus_skull_synth.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 500px;
+    margin: 16px;
+  }
+}
+
+.datetime {
+  color: $fg;
+  font: $dash_font_size "JetBrains Mono";
+
+  .week {
+    font-size: 44px;
+  }
+
+  .day {
+    font-size: 36px;
+  }
+
+  .month {
+    font-size: 48px;
+  }
+
+  .time {
+    font-size: 64px;
+    padding-top: 5px;
+  }
+}
+
+// NOTIFICATIONS
+
+.notif {
+    background: $bg_faded;
+    .list {
+        background: $bg;
+    }
+}
+

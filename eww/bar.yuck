@@ -21,12 +21,12 @@
        ;; (label :text "󰁹"
        ;;        :class "icon")
        (box :width 48
-         (circular-progress :class "circle"
+         (circular-progress :class "circle ${sysinfo.charging ? "charging" : sysinfo.bat1 <= 20 ? "critical" : ""}"
                             :value "${sysinfo.bat1 <= 100 ? sysinfo.bat1 : 100}"
                             :start-at 75
                             :thickness 2
                             :clockwise false)
-         (circular-progress :class "circle"
+         (circular-progress :class "circle ${sysinfo.charging ? "charging" : sysinfo.bat2 <= 20 ? "critical" : ""}" 
                             :value "${sysinfo.bat2 <= 100 ? sysinfo.bat2 : 100}"
                             :start-at 75
                             :thickness 2

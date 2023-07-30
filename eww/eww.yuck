@@ -3,8 +3,8 @@
 
 ;; IMPORTS ;;
 
-(include "widgets_bar.yuck")
-(include "widgets_dashboard.yuck")
+(include "bar.yuck")
+(include "dashboard.yuck")
 (include "variables.yuck")
 
 
@@ -47,8 +47,17 @@
             :geometry (geometry :width "100%"
                                 :height "100%"
                                :anchor "bottom center")
+                               ;; :anchor "top center")
             (dashboard_layout))
 
+(defwindow notification_center
+           :monitor 0
+           :stacking "overlay"
+           :focusable false
+           :geometry (geometry :width "20%"
+                               :height "100%"
+                               :anchor "top right")
+           (notifications))
 
 ;; BAR LAYOUTS ;;
 
@@ -92,10 +101,11 @@
   (box :class "dashboard_main"
        :space-evenly false
        :halign "center"
+       :valign "center"
        (left_column)
        (center_column)
-       (right_column)
-       (power_cluster)))
+       (right_column)))
+       ;; (power_cluster)))
 
 (defwidget left_column []
   (box :orientation "vertical"
@@ -103,17 +113,17 @@
        :space-evenly false
        (profile)
        (box 
-         (small_sq_tile :text "Bluetooth")
-         (updates))))
+         (updates)
+         (bluetooth))))
 
 (defwidget center_column []
   (box :orientation "vertical"
        :valign "center"
        :space-evenly false
        (box :orientation "vertical"
-         (rectangular_tile_horizontal :text "Boh")
-         (rectangular_tile_horizontal :text "Network"))
-       (big_sq_tile :text "Weather")))
+         (rectangular_tile_horizontal :text "Batteries?")
+         (network))
+       (weather)))
 
 (defwidget right_column []
   (box :orientation "vertical"
@@ -127,7 +137,7 @@
       (dash_meter :icon "󰍛" ; CPU
          :value "${sysinfo.cpu}"
          :unit "%")
-      (dash_meter :icon "󰔐" ; TEMP
+      (dash_meter :icon "󰏈" ; TEMP
                   :value "${sysinfo.temp}"
                   :unit "°C"))
     (box
@@ -150,6 +160,14 @@
        (dash_button :icon "󰤄" ; SLEEP
                     :action "notify-send Bruh")))
 
+
+
+;; NOTIFICATION CENTER
+(defwidget notifications []
+  (scroll :hscroll false
+          :vscroll true
+          (notifications_list)))
+               
 
 ;; TEST ;;
 

@@ -38,14 +38,14 @@
                 :class "icon_arch")
          (box
            ;; :space-evenly true ;useless?
-           (label :text "0"
-                  :class "text")
-           (label :text "0"
-                  :class "text")))))
-           ;; (label :text "${updates.pacman}"
+           ;; (label :text "0"
            ;;        :class "text")
-           ;; (label :text "${updates.aur}"
+           ;; (label :text "0"
            ;;        :class "text")))))
+           (label :text "${updates.pacman}"
+                  :class "text")
+           (label :text "${updates.aur}"
+                  :class "text")))))
 
 (defwidget datetime []
   (box :class "tile"
@@ -85,6 +85,82 @@
               :width "${dash_side_size}"  
               :height "${dash_side_size}")))  
 
+(defwidget network []
+  (box :class "tile"
+       :halign "center"
+       :space-evenly false
+       :width "${dash_side_size * 2}"  
+       :height dash_side_size
+       (label :text "${network.signal > 75 ? "󰤨" :
+                       network.signal > 50 ? "󰤢" : 
+                       network.signal > 25 ? "󰤟" : 
+                       network.signal > 0 ? "󰤯" : "󰤮" }"
+              :class "icon network")
+       (box :orientation "vertical"
+            :hexpand true
+            (label :text "${network.name}"
+                   :class "text")
+            (label :text "${network.ip_addr}"
+                   :class "text"))))
+
+(defwidget bluetooth []
+  (box :class "tile"
+       :halign "center"
+       :width dash_side_size 
+       :height dash_side_size
+       (label :text "${bt_power == "yes" ? bt_connected > 0 ? "󰂱" : "󰂯" : "󰂲" }"
+              :class "icon")))
+
+(defwidget weather []
+  (box :class "tile"
+       :halign "center"
+       :width "${dash_side_size * 2}" 
+       :height "${dash_side_size * 2}" 
+       :orientation "vertical"
+       (box
+             (label :text "${weather.status == "Drizzle" ? "󰖗" :
+                          weather.status == "Rain" ? "󰖖" :
+                          weather.status == "Thunderstorm" ? "󰖓" :
+                          weather.status == "Snow" ? "󰖘" :
+                          weather.status == "Clouds" ? "󰖐" :
+                          weather.status == "Clear" ? "󰖙" : "󰖑"}"
+                    :class "icon")
+             (box :orientation "vertical"
+                  (box :space-evenly false
+                       (label :text "󰔐 "
+                              :class "text")
+                       (label :text "${round(weather.temp.temp - 273.15, 0)}°C"
+                               :class "text"))
+                  (box :space-evenly false
+                       (label :text "󰖝 "
+                              :class "text")
+                       (label :text "${round(weather.wnd.speed * 3.6, 1)} km/h"
+                              :class "text"))
+                  (box :space-evenly false
+                       (label :text "󰖎 "
+                              :class "text")
+                       (label :text "${weather.humidity}%"
+                              :class "text"))))
+       (box
+          (label :text "󰍎"
+                 :class "text")
+          (label :text "Trieste"
+                 :class "text"))))
+
+
+(defwidget notifications_list []
+  (box :orientation "vertical"
+       :valign true
+       :class "notif"
+       :space-evenly false
+       (for ntf in {ntfinfo.cache}
+         (box :orientation "vertical"
+              :class "list"
+              :vexpand false
+           (label :text {ntf.title}
+                  :vexpand false)
+           (label :text {ntf.body}
+                  :vexpand false)))))
 
 ;; DEMO TILES ;;
 
@@ -110,7 +186,10 @@
        :width "${dash_side_size * 2}"  
        :height dash_side_size
        (label :text text
-              :class "text")))
+              :class "text"
+              ;; :limit-width 15
+              :width "${dash_side_size}"
+              :wrap true)))
 
 (defwidget rectangular_tile_vertical []
   (box :class "tile"

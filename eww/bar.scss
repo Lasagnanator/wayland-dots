@@ -1,0 +1,72 @@
+// MAIN BAR //
+
+@use "variables.scss";
+
+.bar0,
+.bar1,
+.bar2 {
+  background: transparent;
+}
+
+.layout-box {
+  color: $fg;
+  margin: 8px 8px 0px 8px;
+
+  .left-widgets,
+  .center-widgets,
+  .right-widgets {
+    background: $bg;
+    border-radius: 5px;
+    padding: 0px 4px;
+  }
+}
+
+.workspace-entry {
+  font: 24px "Material Design Icons";
+  padding: 0px 4px;
+
+  &.current {
+    color: $primary;
+  }
+
+  &.occupied {
+    color: $secondary;
+  }
+
+  &.empty {
+    font: 32px "Material Design Icons";
+  }
+}
+
+.info {
+  .icon {
+    font: 18px "Material Design Icons";
+    margin: 2px 0px 0px 4px;
+    color: $primary;
+  }
+
+  .text {
+    margin: 0px 4px 0px 0px;
+  }
+
+  .title {
+    margin: 0px;
+  }
+
+  .circle {
+    color: $secondary;
+    margin: 4px;
+    &.charging {
+        color: $primary;
+    }
+    &.critical {
+        color: $fg;
+    }
+  }
+}
+
+.bar_button {
+  font: 24px "Symbols Nerd Font";
+  color: $primary;
+  margin: 0px 4px;
+}

@@ -1,159 +1,178 @@
 // EWW colors
 
+@import 'variables.scss';
+@import 'bar.scss';
+@import 'dashboard.scss';
+
+/*
 // Variables
-$fg: #A9B1D6;
-$bg: #1F2335;
+$fg: #a9b1d6;
+$bg: #1f2335;
 $bg_faded: #363d5c;
-$primary: #FF8400;
-$secondary: #9358E3;
+$primary: #ff8400;
+$secondary: #9358e3;
 $dash_font_size: 48px;
 $icon_size: 64px;
 
 //\\ MAIN BAR //\\
 
-.bar0, .bar1, .bar2 {
-    background: transparent;
+.bar0,
+.bar1,
+.bar2 {
+  background: transparent;
 }
-
 
 .layout-box {
+  color: $fg;
+  margin: 8px 8px 0px 8px;
 
-    color: $fg;
-    margin: 8px 8px 0px 8px;
-
-    .left-widgets, .center-widgets, .right-widgets {
-        background: $bg;
-        border-radius: 5px;
-        padding: 0px 4px;
-    }
+  .left-widgets,
+  .center-widgets,
+  .right-widgets {
+    background: $bg;
+    border-radius: 5px;
+    padding: 0px 4px;
+  }
 }
-
 
 .workspace-entry {
+  font: 24px "Material Design Icons";
+  padding: 0px 4px;
 
-    font: 24px "Material Design Icons";
-    padding: 0px 4px;
+  &.current {
+    color: $primary;
+  }
 
-    &.current {
-        color: $primary;
-    }
+  &.occupied {
+    color: $secondary;
+  }
 
-    &.occupied {
-        color: $secondary;
-    }
-
-    &.empty {
-        font: 32px "Material Design Icons";
-    }
+  &.empty {
+    font: 32px "Material Design Icons";
+  }
 }
 
+.info {
+  .icon {
+    font: 18px "Material Design Icons";
+    margin: 2px 0px 0px 4px;
+    color: $primary;
+  }
 
-.info { 
+  .text {
+    margin: 0px 4px 0px 0px;
+  }
 
-    .icon {
-        font: 18px "Material Design Icons";
-        margin: 2px 0px 0px 4px;
+  .title {
+    margin: 0px;
+  }
+
+  .circle {
+    color: $secondary;
+    margin: 4px;
+    &.charging {
         color: $primary;
     }
-
-    .text {
-        margin: 0px 4px 0px 0px;
+    &.critical {
+        color: $fg;
     }
-
-    .title {
-        margin: 0px;
-    }
-
-    .circle {
-        color: $secondary;
-        margin: 4px;
-    }
+  }
 }
 
 .bar_button {
-    font: 24px "Symbols Nerd Font";
-    color: $primary;
-    margin: 0px 4px;
+  font: 24px "Symbols Nerd Font";
+  color: $primary;
+  margin: 0px 4px;
 }
 
 //\\ DASHBOARD //\\
 
 .dashboard {
-    // background: transparent;
-    background-image: url('/home/lasagnanator/Pictures/Wallpapers/synth_city.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
+  background: transparent;
+  // background-image: url('/home/lasagnanator/Pictures/Wallpapers/synth_city.png');
+  // background-repeat: no-repeat;
+  // background-size: 100%;
+}
+
+.dashboard_main {
+  background: $bg_faded;
+  border-radius: 16px;
+  padding: 10px;
 }
 
 .tile {
-    
-    background: $bg;
-    border-radius: 16px;
-    padding: 20px;
-    margin: 6px;
-    
-    .icon {
-        font: $icon_size "Material Design Icons";
-        color: $bg_faded;
-    }
+  background: $bg;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 6px;
 
-    .icon_arch {
-        font: $icon_size "Symbols Nerd Font";
-        color: $bg_faded;
+  .icon {
+    font: $icon_size "Material Design Icons";
+    color: $bg_faded;
+    &.network {
+      padding-left: 4px;
     }
+  }
 
-    .circle {
-        color: $secondary;
-    }
+  .icon_arch {
+    font: $icon_size "Symbols Nerd Font";
+    color: $bg_faded;
+  }
 
-    .text {
-        font: 16px "Hack";
-        color: $primary;
-        // margin: 8px;
-   }
+  .circle {
+    color: $secondary;
+  }
 
-    .button {
-        font: $icon_size "Material Design Icons";
-        color: $secondary;
-    }
-    
+  .text {
+    font: 16px "JetBrains Mono";
+    color: $primary;
+    // margin: 8px;
+  }
+
+  .wifi {
+    font: 32px "Hack";
+    color: $primary;
+    // margin: 8px;
+  }
+
+  .button {
+    font: $icon_size "Material Design Icons";
+    color: $secondary;
+  }
 }
 
 .profile {
-
-    @extend .tile;
-    
-    .propic {
-        background-image: url("/home/lasagnanator/Pictures/octopus_skull_synth.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        border-radius: 500px;
-        margin: 16px;
-    }
-
+  @extend .tile;
+  .propic {
+    background-image: url("/home/lasagnanator/Pictures/octopus_skull_synth.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 500px;
+    margin: 16px;
+  }
 }
 
 .datetime {
-    
-    color: $fg;
-    font: $dash_font_size "JetBrains Mono";
+  color: $fg;
+  font: $dash_font_size "JetBrains Mono";
 
-    .week {
-        font-size: 44px;
-    }
+  .week {
+    font-size: 44px;
+  }
 
-    .day {
-        font-size: 36px;
-    }
+  .day {
+    font-size: 36px;
+  }
 
-    .month {
-        font-size: 48px;
-    }
+  .month {
+    font-size: 48px;
+  }
 
-    .time {
-        font-size: 64px;
-        padding-top: 5px;
-    }
-
+  .time {
+    font-size: 64px;
+    padding-top: 5px;
+  }
 }
+
+*/
