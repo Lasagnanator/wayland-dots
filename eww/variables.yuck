@@ -19,6 +19,15 @@
 (defpoll network :initial '{"name": "No internet", "ip_addr": "-", "signal": 0}'
                  :interval "5s"
                  "cd scripts; ./network.py")
+(defpoll bt_power :initial "no"
+                   :interval "5s"
+                   "bluetoothctl show | grep -i powered | cut -d ' ' -f 2")
+(defpoll bt_connected :initial "0"
+                      :interval "5s"
+                      "bluetoothctl devices Connected | wc -l")
+(defpoll weather :interval "30s"
+                 "cd scripts; ./weather.py")
+
 
 ;; Listen
 (deflisten hyprinfo :initial '{"monitors": [], "workspaces": [], "window": {"classname":"~"}}'
@@ -27,3 +36,5 @@
                    "cd scripts; ./sysinfo.py")
 (deflisten brightness "cd scripts; ./brightness.py")
 (deflisten volume "sleep 1; cd scripts; ./volume.py")
+(deflisten ntfinfo :initial '{"last": {}, "cache": []}'
+  "cd scripts; ./notifications.py")
