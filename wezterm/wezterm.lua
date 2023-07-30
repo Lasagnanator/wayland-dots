@@ -17,9 +17,9 @@ config.color_scheme = 'tokyonight_night'
 -- config.default_prog = { 'bash' } -- remove for other login shell
 config.window_background_opacity = 0.85
 config.hide_tab_bar_if_only_one_tab = true
-config.font = wezterm.font ( 'JetBrains Mono', { weight = 'Regular' } )
+config.font = wezterm.font_with_fallback { { family = 'JetBrains Mono',  weight = 'Regular' }, { family = 'Symbols Nerd Font',  weight = 'Regular' } }
 config.font_size = 11.0
--- config.cell_width = 1
+-- config.cell_width = 0.8
 
 config.keys = {
     {
