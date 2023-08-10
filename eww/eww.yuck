@@ -3,9 +3,9 @@
 
 ;; IMPORTS ;;
 
-(include "bar.yuck")
-(include "dashboard.yuck")
-(include "variables.yuck")
+(include "yuck/variables.yuck")
+(include "yuck/bar.yuck")
+(include "yuck/dashboard.yuck")
 
 
 ;; WINDOWS ;;

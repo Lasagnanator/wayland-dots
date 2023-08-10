@@ -148,6 +148,26 @@
                  :class "text"))))
 
 
+
+(defwidget l_timedate []
+  (box :class "side tile"
+       :orientation "vertical"
+       :hexpand true
+       :vexpand false
+       :space-evenly false
+       (label :text "${datetime.time}"
+              :class "time")
+       (label :text "The ${datetime.day} of ${datetime.month}")))
+              ;; :class "tile"
+  
+(defwidget sideboard []
+  (box :space-evenly false
+       :vexpand false
+       :class "side"
+       (l_timedate)))
+
+
+
 (defwidget notifications_list []
   (box :orientation "vertical"
        :valign true
