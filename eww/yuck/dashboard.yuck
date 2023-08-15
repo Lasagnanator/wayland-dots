@@ -171,7 +171,7 @@
        :class "side"
        (l_timedate)))
 
-
+;; NOTIFICATIONS
 
 (defwidget notifications_list []
   (box :orientation "vertical"
@@ -186,6 +186,9 @@
                   :vexpand false)
            (label :text {ntf.body}
                   :vexpand false)))))
+
+(defwidget notification_current []
+  (label :text "notification"))
 
 ;; DEMO TILES ;;
 

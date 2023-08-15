@@ -68,30 +68,40 @@
                                :anchor "top right")
            (notifications))
 
+(defwindow notification_list
+           :monitor 0
+           :stacking "overlay"
+           :focusable false
+           :geometry (geometry :width "20%"
+                               :height "100%"
+                               :anchor "top right")
+           (notification_current))
+
 ;; BAR LAYOUTS ;;
 
 (defwidget bar_layout [monitor]
   (centerbox :class "layout-box"
              :orientation "horizontal"
-             (left)
-             (center :monitor monitor)
+             (left :monitor monitor)
+             (center)
              (right)))
 
-(defwidget left []
-  (box :class "left-widgets"
+(defwidget left [monitor]
+  (box :class "widgets left"
        :orientation "horizontal"
        :space-evenly false
        :halign "start"
        (dashboard_button)
-       (current_window)))
-
-(defwidget center [monitor]
-  (box :class "center-widgets"
-       :orientation "horizontal"
        (workspaces :monitor monitor)))
 
+(defwidget center []
+  (box :class "widgets center"
+       :orientation "horizontal"
+       (current_window)))
+       
+
 (defwidget right []
-  (box :class "right-widgets"
+  (box :class "widgets right"
        :orientation "horizontal"
        :space-evenly false
        :halign "end"
