@@ -148,6 +148,7 @@
                  :class "text"))))
 
 
+;; SIDEBARS
 
 (defwidget l_timedate []
   (box :class "side tile"
@@ -156,9 +157,13 @@
        :vexpand false
        :space-evenly false
        (label :text "${datetime.time}"
-              :class "time")
-       (label :text "The ${datetime.day} of ${datetime.month}")))
+              :class "time"
+              :vexpand false)
+       (label :text "The ${datetime.day} of ${datetime.month}"
+              :vexpand false)))
               ;; :class "tile"
+
+
   
 (defwidget sideboard []
   (box :space-evenly false

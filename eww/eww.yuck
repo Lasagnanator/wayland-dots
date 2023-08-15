@@ -50,6 +50,15 @@
                                ;; :anchor "top center")
             (dashboard_layout))
 
+(defwindow sidebar
+           :monitor 0
+           :stacking "overlay"
+           :focusable true
+           :geometry (geometry :width "20%"
+                               :height "94%"
+                               :anchor "top left")
+           (sideboard_layout))
+
 (defwindow notification_center
            :monitor 0
            :stacking "overlay"
@@ -160,6 +169,13 @@
        (dash_button :icon "󰤄" ; SLEEP
                     :action "notify-send Bruh")))
 
+;; SIDEBAR
+(defwidget sideboard_layout []
+  (scroll :hscroll false
+          :vscroll true
+          :space-evenly false
+          (sideboard)))
+  
 
 
 ;; NOTIFICATION CENTER
