@@ -1,0 +1,54 @@
+$fg: #a9b1d6;
+$bg: #1f2335;
+$bg_faded: #363d5c;
+$primary: #ff8400;
+$secondary: #9358e3;
+
+.window{
+  background: transparent;
+  .bar {
+    background: $bg;
+    margin: 8px;
+    border-radius: 4px;
+    .section {
+      margin: 0px 8px;
+      .workspaces {
+        .workspace {
+          background: transparent;
+          &:hover {
+            background: $bg_faded;
+          }
+          .icon {
+            font-family: Material Design Icons;
+            font-size: 24px;
+            &.selected {
+              color: $primary;
+            }
+            &.occupied {
+              color: $secondary;
+            }
+            &.empty {
+              color: $fg;
+            }
+          }
+        }
+      }
+      .testLabel {
+        margin: 6px 0px;
+        padding: 0px 4px;
+        background: $bg_faded;
+        &.end {
+          border-radius: 0px 4px 4px 0px;
+          color: $bg_faded;
+          background: $primary;
+        }
+      }
+    }
+  }
+}
+
+.separator {
+  font-family: Symbols Nerd Font;
+  font-size: 24px;
+  background: transparent;
+}

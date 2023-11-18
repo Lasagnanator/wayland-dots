@@ -1,0 +1,34 @@
+.window {
+  background: transparent; }
+  .window .bar {
+    background: #1f2335;
+    margin: 8px;
+    border-radius: 4px; }
+    .window .bar .section {
+      margin: 0px 8px; }
+      .window .bar .section .workspaces .workspace {
+        background: transparent; }
+        .window .bar .section .workspaces .workspace:hover {
+          background: #363d5c; }
+        .window .bar .section .workspaces .workspace .icon {
+          font-family: Material Design Icons;
+          font-size: 24px; }
+          .window .bar .section .workspaces .workspace .icon.selected {
+            color: #ff8400; }
+          .window .bar .section .workspaces .workspace .icon.occupied {
+            color: #9358e3; }
+          .window .bar .section .workspaces .workspace .icon.empty {
+            color: #a9b1d6; }
+      .window .bar .section .testLabel {
+        margin: 6px 0px;
+        padding: 0px 4px;
+        background: #363d5c; }
+        .window .bar .section .testLabel.end {
+          border-radius: 0px 4px 4px 0px;
+          color: #363d5c;
+          background: #ff8400; }
+
+.separator {
+  font-family: Symbols Nerd Font;
+  font-size: 24px;
+  background: transparent; }
