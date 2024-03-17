@@ -1,0 +1,93 @@
+(defvar
+  tap-timeout   200
+  hold-timeout  200
+  ;; Short aliases
+  tt $tap-timeout
+  ht $hold-timeout
+)
+
+(defsrc
+  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab     q    w    e    r    t    y    u    i    o    p    [    ]
+  caps    a    s    d    f    g    h    j    k    l    ;    '    \    ret
+  lsft    z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl    lmet lalt           spc            ralt menu rctl ins del
+)
+
+;; Default layer with homerow mods
+(deflayer qwerty-homerow
+  @grvsw  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @tabsw  q    w    e    r    t    y    u    i    o    p    [    ]
+  @escct  @ahm @shm @dhm @fhm g    h    @jhm @khm @lhm @;hm '    \    ret
+  lsft    z    x    c    v    b    n    m    ,    .    /    rsft
+  @capct  lmet lalt           spc            ralt menu rctl ins   del
+)
+
+;; Normal qwerty layout
+(deflayer qwerty
+  @grvsw  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab     q    w    e    r    t    y    u    i    o    p    [    ]
+  caps    a    s    d    f    g    h    j    k    l    ;    '    \    ret
+  lsft    z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl    lmet lalt           spc            ralt menu rctl ins del
+)
+
+;; Arrows on Vim bindings
+(deflayer arrows
+  _       f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
+  _       _    _    _    _    _    home pgup pgdn end  _    _    _
+  _       @ahm @shm @dhm @fhm _    left down up   rght _    _    _    _
+  _       _    _    _    _    _    _    _    _    _    _    _
+  _       _    _              _              _    _    _    _    _
+)
+
+;; Layout selector
+(deflayer layers
+  _       _    _    _    _    _    _    _    _    _    _    _     _    _
+  _       _    _    _    _    _    _    _    _    _    _    @hmrw @norm
+  _       _    _    _    _    _    _    _    _    _    _    _     _    _
+  _       _    _    _    _    _    _    _    _    _    _    _
+  _       _    _              _              _    _    _    _     _
+)
+
+;; Template layer
+(deflayer empty
+  _       _    _    _    _    _    _    _    _    _    _    _    _    _
+  _       _    _    _    _    _    _    _    _    _    _    _    _
+  _       _    _    _    _    _    _    _    _    _    _    _    _    _
+  _       _    _    _    _    _    _    _    _    _    _    _
+  _       _    _              _              _    _    _    _    _
+)
+
+;; Settings
+(defcfg)
+
+;; Layer selectors
+(defalias
+  arrw (layer-toggle arrows)
+  lyrs (layer-toggle layers)
+  hmrw (layer-switch qwerty-homerow)
+  norm (layer-switch qwerty)
+)
+
+;; Tap-hold functions
+(defalias
+  escct (tap-hold $tt $ht esc lctl)
+  capct (tap-hold $tt $ht caps lctl)
+  tabsw (tap-hold $tt $ht tab @arrw)
+  grvsw (tap-hold $tt $ht grv @lyrs)
+  grvqw (tap-hold $tt $ht grv @hmrw)
+  grvhm (tap-hold $tt $ht grv @norm)
+)
+
+;; Homerow mods
+(defalias
+  ahm (tap-hold $tt $ht a lmet)
+  shm (tap-hold $tt $ht s lalt)
+  dhm (tap-hold $tt $ht d lctl)
+  fhm (tap-hold $tt $ht f lsft)
+  jhm (tap-hold $tt $ht j rsft)
+  khm (tap-hold $tt $ht k rctl)
+  lhm (tap-hold $tt $ht l ralt)
+  ;hm (tap-hold $tt $ht ; rmet)
+)
