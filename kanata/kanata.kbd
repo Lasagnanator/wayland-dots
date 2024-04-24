@@ -1,6 +1,7 @@
 (defvar
+  ;; Timeouts
   tap-timeout   200
-  hold-timeout  200
+  hold-timeout  500
   ;; Short aliases
   tt $tap-timeout
   ht $hold-timeout
@@ -35,8 +36,8 @@
 ;; Arrows on Vim bindings
 (deflayer arrows
   _       f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
-  _       _    _    _    _    _    home pgup pgdn end  _    _    _
-  _       @ahm @shm @dhm @fhm _    left down up   rght _    _    _    _
+  _       @ahm @shm @dhm @fhm _    home pgup pgdn end  _    _    _
+  _       @ahm @shm @dhm @fhm _    left down up   rght cmp  _    _    _
   _       _    _    _    _    _    _    _    _    _    _    _
   _       _    _              _              _    _    _    _    _
 )
@@ -45,7 +46,7 @@
 (deflayer layers
   _       _    _    _    _    _    _    _    _    _    _    _     _    _
   _       _    _    _    _    _    _    _    _    _    _    @hmrw @norm
-  _       _    _    _    _    _    _    _    _    _    _    _     _    _
+  _       _    _    _    _    _    _    _    _    _    _    _     lrld _
   _       _    _    _    _    _    _    _    _    _    _    _
   _       _    _              _              _    _    _    _     _
 )
@@ -60,7 +61,9 @@
 )
 
 ;; Settings
-(defcfg)
+(defcfg
+  process-unmapped-keys true
+)
 
 ;; Layer selectors
 (defalias
@@ -72,22 +75,22 @@
 
 ;; Tap-hold functions
 (defalias
-  escct (tap-hold $tt $ht esc lctl)
-  capct (tap-hold $tt $ht caps lctl)
-  tabsw (tap-hold $tt $ht tab @arrw)
-  grvsw (tap-hold $tt $ht grv @lyrs)
-  grvqw (tap-hold $tt $ht grv @hmrw)
-  grvhm (tap-hold $tt $ht grv @norm)
+  escct (tap-hold-release $tt $ht esc lctl)
+  capct (tap-hold-release $tt $ht caps lctl)
+  tabsw (tap-hold-release $tt $ht tab @arrw)
+  grvsw (tap-hold-release $tt $ht grv @lyrs)
+  grvqw (tap-hold-release $tt $ht grv @hmrw)
+  grvhm (tap-hold-release $tt $ht grv @norm)
 )
 
 ;; Homerow mods
 (defalias
-  ahm (tap-hold $tt $ht a lmet)
-  shm (tap-hold $tt $ht s lalt)
-  dhm (tap-hold $tt $ht d lctl)
-  fhm (tap-hold $tt $ht f lsft)
-  jhm (tap-hold $tt $ht j rsft)
-  khm (tap-hold $tt $ht k rctl)
-  lhm (tap-hold $tt $ht l ralt)
-  ;hm (tap-hold $tt $ht ; rmet)
+  ahm (tap-hold-release $tt $ht a lmet)
+  shm (tap-hold-release $tt $ht s lalt)
+  dhm (tap-hold-release $tt $ht d lctl)
+  fhm (tap-hold-release $tt $ht f lsft)
+  jhm (tap-hold-release $tt $ht j lsft)
+  khm (tap-hold-release $tt $ht k lctl)
+  lhm (tap-hold-release $tt $ht l lalt)
+  ;hm (tap-hold-release $tt $ht ; lmet)
 )
