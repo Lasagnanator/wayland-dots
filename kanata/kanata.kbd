@@ -38,7 +38,7 @@
   _       f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
   _       @ahm @shm @dhm @fhm _    home pgup pgdn end  _    _    _
   _       @ahm @shm @dhm @fhm _    left down up   rght cmp  _    _    _
-  _       _    _    _    _    _    _    _    _    _    _    _
+  _       _    _    _    _    _    @cw  caps _    _    _    _
   _       _    _              _              _    _    _    _    _
 )
 
@@ -71,6 +71,14 @@
   lyrs (layer-toggle layers)
   hmrw (layer-switch qwerty-homerow)
   norm (layer-switch qwerty)
+)
+
+;; Custom CAPS-word
+(defalias
+  cw (caps-word-custom 2000
+       (a b c d e f g h i j k l m n o p q r s t u v w x y z)
+       (0 1 2 3 4 5 6 7 8 9 - lsft rsft kp0 kp1 kp2 kp3 kp4 kp5 kp6 kp7 kp8 kp9 bspc del up down left rght)
+  )
 )
 
 ;; Tap-hold functions
